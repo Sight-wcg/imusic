@@ -47,18 +47,22 @@ public class DBConnection {
 
     /**
      * close(): 关闭预处理对象
-     * @param psmt
+     * @param pstmt
      */
     public static void close(PreparedStatement pstmt) {
-        if (psmt != null) {
+        if (pstmt != null) {
             try {
-                psmt.close();
+                pstmt.close();
             } catch(SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * 关闭结果集对象
+     * @param rs
+     */
     public static void close(ResultSet rs) {
         if (rs != null) {
             try {
@@ -69,11 +73,22 @@ public class DBConnection {
         }
     }
 
+    /**
+     * 关闭预处理及连接对象
+     * @param pstmt
+     * @param conn
+     */
     public static void close(PreparedStatement pstmt, Connection conn) {
         close(pstmt);
         close(conn);
     }
 
+    /**
+     * 全部关闭
+     * @param rs
+     * @param pstmt
+     * @param conn
+     */
     public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
         close(rs);
         close(pstmt,conn);
