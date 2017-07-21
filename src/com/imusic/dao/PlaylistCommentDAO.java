@@ -10,14 +10,11 @@ import java.util.List;
  * 声明歌单评论操作
  */
 public interface PlaylistCommentDAO {
-    /**
-     * 根据实际场景，主要的是前面三个方法
-     * @param PlaylistComment
-     */
-    public void addPlaylistComment(PlaylistComment PlaylistComment);          // 添加专辑
-    public void deletePlaylistComment(PlaylistComment PlaylistComment);       // 删除专辑
-    public void updatePlaylistComment(PlaylistComment PlaylistComment);       // 更新专辑
-    public List<PlaylistComment> findAllPlaylistComment();                    // 查找所有的专辑
-    public PlaylistComment findPlaylistCommentByID(int PlaylistCommentID);    // 根据PlaylistCommentID查找专辑
-    // 根据后续业务，可能需要 findPlaylistCommentByName(String PlaylistCommentName);
+
+    public void addPlaylistComment(PlaylistComment playlistComment);          // 添加歌单评论
+    public void deletePlaylistComment(PlaylistComment playlistComment);       // 删除歌单评论
+    public void updatePlaylistComment(PlaylistComment playlistComment);       // 更新歌单评论
+    public List<PlaylistComment> findAllPlaylistComment();                    // 查找所有的歌单评论
+    public PlaylistComment findPlaylistCommentByID(int pCommentID);           // 根据pCommentID查找歌单评论
+
 }
