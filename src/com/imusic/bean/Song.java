@@ -16,6 +16,17 @@ public class Song {
     private int songDownTimes;  // 歌曲被下载的次数
     private int songAccessTime; // 歌曲被访问(收听)的次数
 
+    public Song(int songID, String songName, int albumID, String songType,
+                String songURL, int songDownTimes, int songAccessTime) {
+        this.songID = songID;
+        this.songName = songName;
+        this.albumID = albumID;
+        this.songType = songType;
+        this.songURL = songURL;
+        this.songDownTimes = songDownTimes;
+        this.songAccessTime = songAccessTime;
+    }
+
     public int getSongID() {
         return songID;
     }

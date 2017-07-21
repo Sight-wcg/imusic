@@ -14,6 +14,15 @@ public class Singer {
     private String singerNationality;   // 歌手的国籍
     private int singerHotkey;           // 歌手的热度
 
+    public Singer(int singerID, String singerName,
+                  int singerGender, String singerNationality, int singerHotkey) {
+        this.singerID = singerID;
+        this.singerName = singerName;
+        this.singerGender = singerGender;
+        this.singerNationality = singerNationality;
+        this.singerHotkey = singerHotkey;
+    }
+
     public int getSingerID() {
         return singerID;
     }

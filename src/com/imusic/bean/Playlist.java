@@ -15,6 +15,14 @@ public class Playlist {
     private String playlistDescription;  // 歌单的名称
     private Date playlistCreateDate;    // 歌单的创建日期
 
+    public Playlist(int playlistID, int userID,
+                    String playlistDescription, Date playlistCreateDate) {
+        this.playlistID = playlistID;
+        this.userID = userID;
+        this.playlistDescription = playlistDescription;
+        this.playlistCreateDate = playlistCreateDate;
+    }
+
     public int getPlaylistID() {
         return playlistID;
     }
