@@ -15,5 +15,5 @@ public interface SongDAO {
     public void updateSong(Song Song);       // 更新歌曲信息
     public List<Song> findAllSong();          // 查找所有的歌曲
     public Song findSongByID(int SongID);    // 根据SongID查找歌曲
-    // 根据后续业务，可能需要 findSongByName(String SongName);
+    // 根据后续业务,bi，li=可能需要 findSongByName(String SongName);
 }
