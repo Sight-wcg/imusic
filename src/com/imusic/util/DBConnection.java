@@ -49,7 +49,7 @@ public class DBConnection {
      * close(): 关闭预处理对象
      * @param psmt
      */
-    public static void close(PreparedStatement psmt) {
+    public static void close(PreparedStatement pstmt) {
         if (psmt != null) {
             try {
                 psmt.close();
@@ -67,6 +67,16 @@ public class DBConnection {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void close(PreparedStatement pstmt, Connection conn) {
+        close(pstmt);
+        close(conn);
+    }
+
+    public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+        close(rs);
+        close(pstmt,conn);
     }
 }
 
