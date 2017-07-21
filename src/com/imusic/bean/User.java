@@ -1,9 +1,5 @@
 package com.imusic.bean;
 
-import com.imusic.util.ResultSetUtil;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 /**
