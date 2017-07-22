@@ -14,12 +14,15 @@ public class Album {
     private String albumName;       // 专辑名字
     private int singerID;           // 专辑所属歌手的ID
     private Date albumCreateDate;   // 专辑创建的日期(也可延伸为专辑的年份)
+    private String albumImg;        // 专辑封面的图片路径
 
-    public Album(int albumID, String albumName, int singerID, Date albumCreateDate) {
+    public Album(int albumID, String albumName, int singerID,
+                 Date albumCreateDate, String albumImg) {
         this.albumID = albumID;
         this.albumName = albumName;
         this.singerID = singerID;
         this.albumCreateDate = albumCreateDate;
+        this.albumImg = albumImg;
     }
 
     public int getAlbumID() {
@@ -54,4 +57,11 @@ public class Album {
         this.albumCreateDate = albumCreateDate;
     }
 
+    public String getAlbumImg() {
+        return albumImg;
+    }
+
+    public void setAlbumImg(String albumImg) {
+        this.albumImg = albumImg;
+    }
 }
