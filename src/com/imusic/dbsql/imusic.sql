@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: imusic
+-- Host: localhost    Database: IMUSIC
 -- ------------------------------------------------------
 -- Server version	10.2.7-MariaDB-10.2.7+maria~xenial-log
 
@@ -16,12 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- you can create database in this file if you want
--- eg: create database imusic;
---     use imusic;
---
-
---
 -- Table structure for table `album`
 --
 
@@ -33,9 +27,9 @@ CREATE TABLE `album` (
   `albumName` varchar(20) NOT NULL,
   `singerID` int(11) NOT NULL,
   `albumCreateDate` date DEFAULT NULL,
+  `albumImg` varchar(100) DEFAULT 'system/image/defaultAlbum.jpg',
   PRIMARY KEY (`albumID`),
-  KEY `singerID` (`singerID`),
-  CONSTRAINT `singerID` FOREIGN KEY (`singerID`) REFERENCES `singer` (`singerID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `singerID` (`singerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,7 +52,9 @@ DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE `playlist` (
   `playlistID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) DEFAULT NULL COMMENT '歌单创建者',
-  `playlistDescription` varchar(30) DEFAULT NULL,
+  `playlistName` varchar(20) DEFAULT NULL,
+  `playlistDescription` varchar(30) DEFAULT 'NULL',
+  `playlistImg` varchar(100) DEFAULT 'system/images/defaultPlaylist.jpg',
   `playlistCreateDate` date NOT NULL,
   PRIMARY KEY (`playlistID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='歌单';
@@ -88,9 +84,7 @@ CREATE TABLE `playlistComment` (
   `playlistID` int(11) NOT NULL,
   PRIMARY KEY (`pCommentID`),
   KEY `playlistComment_user_userID_fk` (`userID`),
-  KEY `playlistComment_playlist_playlistID_fk` (`playlistID`),
-  CONSTRAINT `playlistComment_playlist_playlistID_fk` FOREIGN KEY (`playlistID`) REFERENCES `playlist` (`playlistID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `playlistComment_user_userID_fk` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `playlistComment_playlist_playlistID_fk` (`playlistID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -118,9 +112,7 @@ CREATE TABLE `playlistCommentReply` (
   `pCommentID` int(11) NOT NULL,
   PRIMARY KEY (`pCReplyID`),
   KEY `playlistCommentReply_playlistComment_pCommentID_fk` (`pCommentID`),
-  KEY `playlistCommentReply_user_userID_fk` (`userID`),
-  CONSTRAINT `playlistCommentReply_playlistComment_pCommentID_fk` FOREIGN KEY (`pCommentID`) REFERENCES `playlistComment` (`pCommentID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `playlistCommentReply_user_userID_fk` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `playlistCommentReply_user_userID_fk` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,9 +136,7 @@ CREATE TABLE `playlistHasSong` (
   `playlistID` int(11) NOT NULL,
   `songID` int(11) NOT NULL,
   PRIMARY KEY (`playlistID`,`songID`),
-  KEY `playlistHasSong_ibfk_2` (`songID`),
-  CONSTRAINT `playlistHasSong_ibfk_1` FOREIGN KEY (`playlistID`) REFERENCES `playlist` (`playlistID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `playlistHasSong_ibfk_2` FOREIGN KEY (`songID`) REFERENCES `song` (`songID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `playlistHasSong_ibfk_2` (`songID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -201,8 +191,7 @@ CREATE TABLE `song` (
   `songDownTimes` int(11) DEFAULT 0,
   `songAccessTimes` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`songID`),
-  KEY `albumID` (`albumID`),
-  CONSTRAINT `albumID` FOREIGN KEY (`albumID`) REFERENCES `album` (`albumID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `albumID` (`albumID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -230,9 +219,7 @@ CREATE TABLE `songComment` (
   `songID` int(11) NOT NULL COMMENT '被评论的歌曲',
   PRIMARY KEY (`sCommentID`),
   KEY `songComment_song_songID_fk` (`songID`),
-  KEY `songComment_user_userID_fk` (`userID`),
-  CONSTRAINT `songComment_song_songID_fk` FOREIGN KEY (`songID`) REFERENCES `song` (`songID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `songComment_user_userID_fk` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `songComment_user_userID_fk` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,9 +247,7 @@ CREATE TABLE `songCommentReply` (
   `sCommentID` int(11) NOT NULL,
   PRIMARY KEY (`sCReplyID`),
   KEY `songCommentReply_songComment_sCommentID_fk` (`sCommentID`),
-  KEY `songCommentReply_user_userID_fk` (`userID`),
-  CONSTRAINT `songCommentReply_songComment_sCommentID_fk` FOREIGN KEY (`sCommentID`) REFERENCES `songComment` (`sCommentID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `songCommentReply_user_userID_fk` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `songCommentReply_user_userID_fk` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -291,7 +276,7 @@ CREATE TABLE `user` (
   `userRegisterDate` date DEFAULT curdate(),
   `userBirthday` date DEFAULT NULL,
   `userAddress` varchar(30) DEFAULT NULL,
-  `userHeadPortrait` varchar(30) DEFAULT '''system/image/default.jpg''',
+  `userHeadPortrait` varchar(100) DEFAULT '''''''system/image/default.jpg''''''',
   `userDescription` text DEFAULT 'introduce yourself~',
   `userLastLoginDate` date DEFAULT curdate(),
   PRIMARY KEY (`userID`),
@@ -321,9 +306,7 @@ CREATE TABLE `userCollectedSongs` (
   `songID` int(11) NOT NULL,
   `collectedDate` date NOT NULL,
   PRIMARY KEY (`userID`,`songID`),
-  KEY `userCollectedSongs_song_songID_fk` (`songID`),
-  CONSTRAINT `userCollectedSongs_song_songID_fk` FOREIGN KEY (`songID`) REFERENCES `song` (`songID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `userCollectedSongs_user_userID_fk` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userCollectedSongs_song_songID_fk` (`songID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -348,9 +331,7 @@ CREATE TABLE `userFocusUser` (
   `toUserID` int(11) NOT NULL,
   `focusDate` date NOT NULL,
   PRIMARY KEY (`fromUserID`,`toUserID`),
-  KEY `userFocusUser_toUserID_fk` (`toUserID`),
-  CONSTRAINT `userFocusUser_fromUserID_fk` FOREIGN KEY (`fromUserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `userFocusUser_toUserID_fk` FOREIGN KEY (`toUserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userFocusUser_toUserID_fk` (`toUserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -375,9 +356,7 @@ CREATE TABLE `userListenHistory` (
   `songID` int(11) NOT NULL,
   `listenDate` date NOT NULL,
   PRIMARY KEY (`userID`,`songID`),
-  KEY `userListenHistory_ibfk_2` (`songID`),
-  CONSTRAINT `userListenHistory_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `userListenHistory_ibfk_2` FOREIGN KEY (`songID`) REFERENCES `song` (`songID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userListenHistory_ibfk_2` (`songID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -399,4 +378,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-21 21:41:48
+-- Dump completed on 2017-07-22 12:01:15
