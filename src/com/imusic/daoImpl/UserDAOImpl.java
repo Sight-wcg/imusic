@@ -75,10 +75,11 @@ public class UserDAOImpl implements UserDAO {
         PreparedStatement pstmt = null;
         String findAllUserSQL = "select * from user";
         ResultSet rs = null;
+        List<User> userList = null;
         try {
             pstmt = conn.prepareStatement(findAllUserSQL);
             rs = pstmt.executeQuery();
-            List<User> userList = new ArrayList<>();
+             userList = new ArrayList<>();
             while (rs.next()) {
                 userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7),
@@ -87,6 +88,8 @@ public class UserDAOImpl implements UserDAO {
             return userList;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.close(rs, pstmt, conn);
         }
 
         return null;
