@@ -18,8 +18,26 @@ import java.util.List;
  */
 public class PlaylistDAOImpl implements PlaylistDAO {
     @Override
-    public void addPlaylist(Playlist playlist) {
-
+    public void addPlaylist(Playlist playlist, int userID) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = null;
+        /**
+         * 创建歌单时获得创建者，填入歌单名，歌单描述，歌单图片等
+         */
+        String addPlaylistSQL = "insert into playlist(userID, playlistName, playlistDescription, " +
+                "playlistImg) values(?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(addPlaylistSQL);
+            pstmt.setInt(1, userID);
+            pstmt.setString(2, playlist.getPlaylistName());
+            pstmt.setString(3, playlist.getPlaylistDescription());
+            pstmt.setString(4, playlist.getPlaylistImg());  // 设置图片路径
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(pstmt, conn);
+        }
     }
 
     @Override
@@ -38,9 +56,27 @@ public class PlaylistDAOImpl implements PlaylistDAO {
         }
     }
 
+    /**
+     * 默认更新歌单名字，歌单描述，歌单图片
+     * @param playlist
+     */
     @Override
     public void updatePlaylist(Playlist playlist) {
-
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = null;
+        String updatePlaylistSQL = "update playlist set playlistName = ?, " +
+                "playlistDescription = ?, playlistImg = ? where playlistID = ?";
+        try {
+            pstmt = conn.prepareStatement(updatePlaylistSQL);
+            pstmt.setString(1, playlist.getPlaylistName());
+            pstmt.setString(2, playlist.getPlaylistDescription());
+            pstmt.setString(3, playlist.getPlaylistImg());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(pstmt, conn);
+        }
     }
 
     @Override

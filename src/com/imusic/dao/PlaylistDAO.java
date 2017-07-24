@@ -10,7 +10,7 @@ import java.util.List;
  * 声明歌单相关操作
  */
 public interface PlaylistDAO {
-    public void addPlaylist(Playlist playlist);          // 添加歌单
+    public void addPlaylist(Playlist playlist, int userID);          // 添加歌单
     public void deletePlaylist(Playlist playlist);       // 删除歌单
     public void updatePlaylist(Playlist playlist);       // 更新歌单
     public List<Playlist> findAllPlaylist();          // 查找所有的歌单
