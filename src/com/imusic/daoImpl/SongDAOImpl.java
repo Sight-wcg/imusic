@@ -1,5 +1,6 @@
 package com.imusic.daoImpl;
 
+import com.imusic.bean.Playlist;
 import com.imusic.bean.Song;
 import com.imusic.dao.SongDAO;
 import com.imusic.util.DBConnection;
@@ -17,8 +18,13 @@ import java.util.List;
  * unfinished: 添加歌曲，更新歌曲（需要知道确切的实际操作信息）
  */
 public class SongDAOImpl implements SongDAO {
+    /**
+     * 为专辑添加歌曲
+     * @param song
+     * @param
+     */
     @Override
-    public void addSong(Song song) {
+    public void addSong(Song song, int albumID) {
 
     }
 
@@ -57,7 +63,7 @@ public class SongDAOImpl implements SongDAO {
         try {
             pstmt = conn.prepareStatement(findAllSongSQL);
             rs = pstmt.executeQuery();
-             songList = new ArrayList<>();
+            songList = new ArrayList<>();
             while (rs.next()) {
                 songList.add(new Song(rs.getInt(1), rs.getString(2), rs.getInt(3),
                         rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7)));

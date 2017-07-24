@@ -10,7 +10,7 @@ import java.util.List;
  * 声明歌曲操作信息
  */
 public interface SongDAO {
-    public void addSong(Song song);          // 添加歌曲
+    public void addSong(Song song, int playlistID);          // 添加歌曲
     public void deleteSong(Song song);       // 删除歌曲
     public void updateSong(Song song);       // 更新歌曲信息
     public List<Song> findAllSong();          // 查找所有的歌曲
