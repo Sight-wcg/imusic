@@ -14,15 +14,17 @@ public class SongComment {
     private String sCommentContent;     // 歌曲评论内容
     private Date sCommentDate;          // 歌曲评论日期
     private int userID;                 // 歌曲评论者
-    private int songID;             // 被评论的歌曲ID
+    private int songID;                 // 被评论的歌曲ID
+    private int sCommentAgreeNumber;    // 赞的个数
 
     public SongComment(int sCommentID, String sCommentContent,
-                       Date sCommentDate, int userID, int songID) {
+                       Date sCommentDate, int userID, int songID, int sCommentAgreeNumber) {
         this.sCommentID = sCommentID;
         this.sCommentContent = sCommentContent;
         this.sCommentDate = sCommentDate;
         this.userID = userID;
         this.songID = songID;
+        this.sCommentAgreeNumber = sCommentAgreeNumber;
     }
 
     public int getsCommentID() {
@@ -63,5 +65,13 @@ public class SongComment {
 
     public void setSongID(int songID) {
         this.songID = songID;
+    }
+
+    public int getsCommentAgreeNumber() {
+        return sCommentAgreeNumber;
+    }
+
+    public void setsCommentAgreeNumber(int sCommentAgreeNumber) {
+        this.sCommentAgreeNumber = sCommentAgreeNumber;
     }
 }

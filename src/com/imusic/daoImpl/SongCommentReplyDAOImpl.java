@@ -1,6 +1,5 @@
 package com.imusic.daoImpl;
 
-import com.imusic.bean.SongComment;
 import com.imusic.bean.SongCommentReply;
 import com.imusic.dao.SongCommentReplyDAO;
 import com.imusic.util.DBConnection;
@@ -19,8 +18,8 @@ public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
     public void addSongCommentReply(SongCommentReply sCReply) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String addSCReplySQL = "insert into songCommentReply(sCReplyContent, " +
-                "sCReplyDate, userID, sCommentID) values(?, ?, ?, ?)";
+        String addSCReplySQL = "insert into song_comment_reply(reply, " +
+                "replyDate, userID, commentID) values(?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addSCReplySQL);
             pstmt.setString(1, sCReply.getsCReplyContent());
@@ -39,7 +38,7 @@ public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
     public void deleteSongCommentReply(SongCommentReply sCReply) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String delSCReplySQL = "delete from songCommentReply where sCReplyID = ?";
+        String delSCReplySQL = "delete from song_comment_reply where replyID = ?";
         try {
             pstmt = conn.prepareStatement(delSCReplySQL);
             pstmt.setInt(1, sCReply.getsCReplyID());
@@ -65,7 +64,7 @@ public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
     public List<SongCommentReply> findAllSongCommentReply(int sCommentID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllSCReplySQL = "select * from songCommentReply where sCommentID = ?";
+        String findAllSCReplySQL = "select * from song_comment_reply where commentID = ?";
         ResultSet rs = null;
         List<SongCommentReply> songCommentReplies;
         try {
@@ -75,7 +74,7 @@ public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
             songCommentReplies = new ArrayList<>();
             while (rs.next()) {
                 songCommentReplies.add(new SongCommentReply(rs.getInt(1), rs.getString(2),
-                        rs.getDate(3), rs.getInt(4), rs.getInt(5)));
+                        rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return songCommentReplies;
         } catch (SQLException e) {

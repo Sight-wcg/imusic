@@ -1,6 +1,5 @@
 package com.imusic.daoImpl;
 
-import com.imusic.bean.Playlist;
 import com.imusic.bean.Song;
 import com.imusic.dao.SongDAO;
 import com.imusic.util.DBConnection;
@@ -66,7 +65,8 @@ public class SongDAOImpl implements SongDAO {
             songList = new ArrayList<>();
             while (rs.next()) {
                 songList.add(new Song(rs.getInt(1), rs.getString(2), rs.getInt(3),
-                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7)));
+                        rs.getString(4), rs.getString(5), rs.getInt(6),
+                        rs.getInt(7), rs.getString(8), rs.getString(9)));
             }
             return songList;
         } catch (SQLException e) {
@@ -90,7 +90,8 @@ public class SongDAOImpl implements SongDAO {
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Song(rs.getInt(1), rs.getString(2), rs.getInt(3),
-                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+                        rs.getString(4), rs.getString(5), rs.getInt(6),
+                        rs.getInt(7), rs.getString(8), rs.getString(9));
             }
         } catch (SQLException e) {
             e.printStackTrace();

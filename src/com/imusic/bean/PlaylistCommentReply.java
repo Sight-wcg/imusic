@@ -15,14 +15,16 @@ public class PlaylistCommentReply {
     private Date pCReplyDate;       // 回复的日期时间
     private int userID;             // 回复者ID
     private int pCommentID;         // 被回复的评论ID
+    private int pCReplyAgreeNumber; // 赞的个数
 
     public PlaylistCommentReply(int pCReplyID, String pCReplyContent,
-                                Date pCReplyDate, int userID, int pCommentID) {
+                                Date pCReplyDate, int userID, int pCommentID, int pCReplyAgreeNumber) {
         this.pCReplyID = pCReplyID;
         this.pCReplyContent = pCReplyContent;
         this.pCReplyDate = pCReplyDate;
         this.userID = userID;
         this.pCommentID = pCommentID;
+        this.pCReplyAgreeNumber = pCReplyAgreeNumber;
     }
 
     public int getpCReplyID() {
@@ -63,5 +65,13 @@ public class PlaylistCommentReply {
 
     public void setpCommentID(int pCommentID) {
         this.pCommentID = pCommentID;
+    }
+
+    public int getpCReplyAgreeNumber() {
+        return pCReplyAgreeNumber;
+    }
+
+    public void setpCReplyAgreeNumber(int pCReplyAgreeNumber) {
+        this.pCReplyAgreeNumber = pCReplyAgreeNumber;
     }
 }

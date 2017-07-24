@@ -56,8 +56,8 @@ public class AlbumDAOImpl implements AlbumDAO {
             rs = pstmt.executeQuery();
              albumList = new ArrayList<>();
             while (rs.next()) {
-                albumList.add(new Album(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getDate(4), rs.getString(5)));
+                albumList.add(new Album(rs.getInt(1), rs.getString(2), rs.getInt(3),
+                        rs.getDate(4), rs.getString(5), rs.getString(5)));
             }
             return albumList;
         } catch(SQLException e) {
@@ -79,8 +79,8 @@ public class AlbumDAOImpl implements AlbumDAO {
             pstmt.setInt(1, albumID);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Album(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getDate(4), rs.getString(5));
+                return new Album(rs.getInt(1), rs.getString(2), rs.getInt(3),
+                        rs.getDate(4), rs.getString(5), rs.getString(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();

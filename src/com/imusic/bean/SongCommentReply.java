@@ -15,14 +15,16 @@ public class SongCommentReply {
     private Date sCReplyDate;       // 回复的日期时间
     private int userID;             // 回复者ID
     private int sCommentID;         // 被回复的评论ID
+    private int sCReplyAgreeNumber; // 赞的个数
 
     public SongCommentReply(int sCReplyID, String sCReplyContent,
-                            Date sCReplyDate, int userID, int sCommentID) {
+                            Date sCReplyDate, int userID, int sCommentID, int sCReplyAgreeNumber) {
         this.sCReplyID = sCReplyID;
         this.sCReplyContent = sCReplyContent;
         this.sCReplyDate = sCReplyDate;
         this.userID = userID;
         this.sCommentID = sCommentID;
+        this.sCReplyAgreeNumber = sCReplyAgreeNumber;
     }
 
     public int getsCReplyID() {
@@ -63,5 +65,13 @@ public class SongCommentReply {
 
     public void setsCommentID(int sCommentID) {
         this.sCommentID = sCommentID;
+    }
+
+    public int getsCReplyAgreeNumber() {
+        return sCReplyAgreeNumber;
+    }
+
+    public void setsCReplyAgreeNumber(int sCReplyAgreeNumber) {
+        this.sCReplyAgreeNumber = sCReplyAgreeNumber;
     }
 }

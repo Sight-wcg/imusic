@@ -24,8 +24,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
         /**
          * 创建歌单时获得创建者，填入歌单名，歌单描述，歌单图片等
          */
-        String addPlaylistSQL = "insert into playlist(userID, playlistName, playlistDescription, " +
-                "playlistImg) values(?, ?, ?, ?)";
+        String addPlaylistSQL = "insert into list(creatorID, listName, description, listImg) values(?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addPlaylistSQL);
             pstmt.setInt(1, userID);
@@ -44,7 +43,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public void deletePlaylist(Playlist playlist) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String delPlaylistSQL = "delete from playlist where playlistID = ?";
+        String delPlaylistSQL = "delete from list where listID = ?";
         try {
             pstmt = conn.prepareStatement(delPlaylistSQL);
             pstmt.setInt(1, playlist.getPlaylistID());
@@ -64,13 +63,14 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public void updatePlaylist(Playlist playlist) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String updatePlaylistSQL = "update playlist set playlistName = ?, " +
-                "playlistDescription = ?, playlistImg = ? where playlistID = ?";
+        String updatePlaylistSQL = "update list set listName = ?, " +
+                "description = ?, listImg = ? where listID = ?";
         try {
             pstmt = conn.prepareStatement(updatePlaylistSQL);
             pstmt.setString(1, playlist.getPlaylistName());
             pstmt.setString(2, playlist.getPlaylistDescription());
             pstmt.setString(3, playlist.getPlaylistImg());
+            pstmt.setInt(4, playlist.getPlaylistID());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public List<Playlist> findAllPlaylist() {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllPlaylistSQL = "select * from playlist";
+        String findAllPlaylistSQL = "select * from list";
         ResultSet rs = null;
         List<Playlist> playlists = null;
         try {
@@ -93,7 +93,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             while (rs.next()) {
                 playlists.add(new Playlist(rs.getInt(1), rs.getInt(2),
                         rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getDate(6)));
+                        rs.getString(5), rs.getDate(6), rs.getInt(7)));
             }
             return playlists;
         } catch(SQLException e) {
@@ -108,7 +108,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public Playlist findPlaylistByID(int playlistID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findPlaylistByIDSQL = "select * from playlist where playlistID = ?";
+        String findPlaylistByIDSQL = "select * from list where listID = ?";
         ResultSet rs =null;
         try {
             pstmt = conn.prepareStatement(findPlaylistByIDSQL);
@@ -117,7 +117,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             if (rs.next()) {
                 return new Playlist(rs.getInt(1), rs.getInt(2),
                         rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getDate(6));
+                        rs.getString(5), rs.getDate(6), rs.getInt(7));
             }
         } catch (SQLException e) {
             e.printStackTrace();

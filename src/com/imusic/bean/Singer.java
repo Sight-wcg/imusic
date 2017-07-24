@@ -12,15 +12,19 @@ public class Singer {
     private String singerName;
     private int singerGender;           // 1:男, 2:女   //可通过case判断设置信息
     private String singerNationality;   // 歌手的国籍
-    private int singerHotkey;           // 歌手的热度
+    private int singerHot;              // 歌手的热度（关注数）
+    private String singerDescription;   // 歌手的描述
+    private int singerAge;              // 歌手的年龄
 
     public Singer(int singerID, String singerName,
-                  int singerGender, String singerNationality, int singerHotkey) {
+                  int singerGender, String singerNationality, int singerHot, String singerDescription, int singerAge) {
         this.singerID = singerID;
         this.singerName = singerName;
         this.singerGender = singerGender;
         this.singerNationality = singerNationality;
-        this.singerHotkey = singerHotkey;
+        this.singerHot = singerHot;
+        this.singerDescription = singerDescription;
+        this.singerAge = singerAge;
     }
 
     public int getSingerID() {
@@ -55,11 +59,27 @@ public class Singer {
         this.singerNationality = singerNationality;
     }
 
-    public int getSingerHotkey() {
-        return singerHotkey;
+    public int getSingerHot() {
+        return singerHot;
     }
 
-    public void setSingerHotkey(int singerHotkey) {
-        this.singerHotkey = singerHotkey;
+    public void setSingerHot(int singerHotkey) {
+        this.singerHot = singerHot;
+    }
+
+    public String getSingerDescription() {
+        return singerDescription;
+    }
+
+    public void setSingerDescription(String singerDescription) {
+        this.singerDescription = singerDescription;
+    }
+
+    public int getSingerAge() {
+        return singerAge;
+    }
+
+    public void setSingerAge(int singerAge) {
+        this.singerAge = singerAge;
     }
 }

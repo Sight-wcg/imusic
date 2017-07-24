@@ -20,17 +20,22 @@ import java.util.List;
  *     toUserID = toUser.getUserID();
  */
 public class UserFocusUserDAOImpl implements UserFocusUserDAO {
+    /**
+     * 至于focusDate可以使用系统当前时间作为默认值
+     * @param fromUserID
+     * @param toUserID
+     */
     @Override
     public void addFocus(int fromUserID, int toUserID) {
-        String addFocusSQL = "insert into userFocusUser" +
-                "(fromUserID, toUserID) values(?, ?)";
+        String addFocusSQL = "insert into focus" +
+                "(fanID, focusID) values(?, ?)";
         DBOperation.dateOperate(fromUserID, toUserID, addFocusSQL);
     }
 
     @Override
     public void delFocus(int fromUserID, int toUserID) {
-        String delFocusSQL = "delete from userFocusUser " +
-                "where fromUserID = ? and toUserID = ?";
+        String delFocusSQL = "delete from focus " +
+                "where fanUserID = ? and focusID = ?";
         DBOperation.dateOperate(fromUserID, toUserID, delFocusSQL);
     }
 
@@ -50,7 +55,8 @@ public class UserFocusUserDAOImpl implements UserFocusUserDAO {
             while (rs.next()) {
                 userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7),
-                        rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11)));
+                        rs.getString(8), rs.getString(9), rs.getString(10),
+                        rs.getDate(11), rs.getString(12), rs.getInt(13)));
             }
             return userList;
         } catch (SQLException e) {

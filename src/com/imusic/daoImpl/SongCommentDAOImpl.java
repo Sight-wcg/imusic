@@ -26,8 +26,8 @@ public class SongCommentDAOImpl implements SongCommentDAO {
     public void addSongComment(SongComment sComment) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String addSCommentSQL = "insert into songComment(sCommentContent, " +
-                "sCommentDate, userID, songID) values(?,?,?,?)";
+        String addSCommentSQL = "insert into song_comment(comment, " +
+                "commentDate, userID, songID) values(?,?,?,?)";
         try {
             pstmt = conn.prepareStatement(addSCommentSQL);
             pstmt.setString(1, sComment.getsCommentContent());
@@ -46,7 +46,7 @@ public class SongCommentDAOImpl implements SongCommentDAO {
     public void deleteSongComment(SongComment sComment) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String delSongCommentSQL = "delete from songComment where sCommentID = ?";
+        String delSongCommentSQL = "delete from song_comment where commentID = ?";
         try {
             pstmt = conn.prepareStatement(delSongCommentSQL);
             pstmt.setInt(1, sComment.getsCommentID());
@@ -70,9 +70,9 @@ public class SongCommentDAOImpl implements SongCommentDAO {
     public List<SongComment> findAllSongComment(int songID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllSCommentSQL = "select * from songComment where songID = ?";
+        String findAllSCommentSQL = "select * from song_comment where songID = ?";
         ResultSet rs = null;
-        List<SongComment> songComments = null;
+        List<SongComment> songComments;
         try {
             pstmt = conn.prepareStatement(findAllSCommentSQL);
             pstmt.setInt(1, songID);
@@ -80,7 +80,7 @@ public class SongCommentDAOImpl implements SongCommentDAO {
             songComments = new ArrayList<>();
             while (rs.next()) {
                 songComments.add(new SongComment(rs.getInt(1), rs.getString(2),
-                        rs.getDate(3), rs.getInt(4), rs.getInt(5)));
+                        rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return songComments;
         } catch (SQLException e) {

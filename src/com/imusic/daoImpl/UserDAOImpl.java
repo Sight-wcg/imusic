@@ -16,8 +16,8 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(User user) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String addUserSQL = "insert into user(userName, userPassword, " +
-                "userEmail,userRegisterDate,userLastLoginDate) values(?, ?, ?, ?, ?)";
+        String addUserSQL = "insert into user(userName, password, " +
+                "email,registerDate,lastLoginDate) values(?, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addUserSQL);
             pstmt.setString(1, user.getUserName());
@@ -47,8 +47,8 @@ public class UserDAOImpl implements UserDAO {
     public void updateUser(User user) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String updateUserSQL = "update user set userName = ?, userEmail = ?, userGender = ?," +
-                "userBirthday = ?, userAddress = ?, userHeadPortrait = ?, userDescription = ?";
+        String updateUserSQL = "update user set userName = ?, email = ?, gender = ?," +
+                "birthday = ?, address = ?, headImage = ?, description = ?, phoneNumber = ?";
         try {
             pstmt = conn.prepareStatement(updateUserSQL);
             pstmt.setString(1, user.getUserName());
@@ -58,6 +58,7 @@ public class UserDAOImpl implements UserDAO {
             pstmt.setString(5, user.getUserAddress());
             pstmt.setString(6, user.getUserHeadPortrait()); // 设置用户头像路径
             pstmt.setString(7, user.getUserDescription());
+            pstmt.setString(8, user.getUserPhoneNumber());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,7 +98,8 @@ public class UserDAOImpl implements UserDAO {
             while (rs.next()) {
                 userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7),
-                        rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11)));
+                        rs.getString(8), rs.getString(9), rs.getString(10),
+                        rs.getDate(11), rs.getString(12), rs.getInt(13)));
             }
             return userList;
         } catch (SQLException e) {
@@ -122,7 +124,8 @@ public class UserDAOImpl implements UserDAO {
             if (rs.next()) {
                 return new User(rs.getInt(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7),
-                        rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11));
+                        rs.getString(8), rs.getString(9), rs.getString(10),
+                        rs.getDate(11), rs.getString(12), rs.getInt(13));
             }
         } catch (SQLException e) {
             e.printStackTrace();

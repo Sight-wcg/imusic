@@ -16,15 +16,17 @@ public class Playlist {
     private String playlistDescription; // 歌单的描述
     private String playlistImg;         // 歌单封面的图片路径
     private Date playlistCreateDate;    // 歌单的创建日期
+    private int playlistAccessTimes;    // 歌单的访问次数
 
-    public Playlist(int playlistID, int userID, String playlistName,
-                    String playlistDescription, String playlistImg, Date playlistCreateDate) {
+    public Playlist(int playlistID, int userID, String playlistName, String playlistDescription,
+                    String playlistImg, Date playlistCreateDate, int playlistAccessTimes) {
         this.playlistID = playlistID;
         this.userID = userID;
         this.playlistName = playlistName;
         this.playlistDescription = playlistDescription;
         this.playlistImg = playlistImg;
         this.playlistCreateDate = playlistCreateDate;
+        this.playlistAccessTimes = playlistAccessTimes;
     }
 
     public int getPlaylistID() {
@@ -73,5 +75,13 @@ public class Playlist {
 
     public void setPlaylistCreateDate(Date playlistCreateDate) {
         this.playlistCreateDate = playlistCreateDate;
+    }
+
+    public int getPlaylistAccessTimes() {
+        return playlistAccessTimes;
+    }
+
+    public void setPlaylistAccessTimes(int playlistAccessTimes) {
+        this.playlistAccessTimes = playlistAccessTimes;
     }
 }

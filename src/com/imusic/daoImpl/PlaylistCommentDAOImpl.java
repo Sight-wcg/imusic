@@ -18,8 +18,8 @@ public class PlaylistCommentDAOImpl implements PlaylistCommentDAO {
     public void addPlaylistComment(PlaylistComment playlistComment) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String addPCommnetSQL = "insert into playlistComment(pCommentContent, pCommentDate," +
-                " userID, playlistID values(?, ?, ?, ?)";
+        String addPCommnetSQL = "insert into list_comment(listComment, listCommentDate," +
+                " userID, listID values(?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addPCommnetSQL);
             pstmt.setString(1, playlistComment.getpCommentContent());
@@ -38,7 +38,7 @@ public class PlaylistCommentDAOImpl implements PlaylistCommentDAO {
     public void deletePlaylistComment(PlaylistComment playlistComment) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String delPCommentSQL = "delete from playlistComment where pCommentID = ?";
+        String delPCommentSQL = "delete from list_comment where listCommentID = ?";
         try {
             pstmt = conn.prepareStatement(delPCommentSQL);
             pstmt.setInt(1, playlistComment.getpCommentID());
@@ -59,7 +59,7 @@ public class PlaylistCommentDAOImpl implements PlaylistCommentDAO {
     public List<PlaylistComment> findAllPlaylistComment(int playlistID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllPCommentSQL = "select * from playlistComment where playlistID = ?";
+        String findAllPCommentSQL = "select * from listComment where listID = ?";
         ResultSet rs = null;
         List<PlaylistComment> playlistComments = null;
         try {
@@ -69,7 +69,7 @@ public class PlaylistCommentDAOImpl implements PlaylistCommentDAO {
             playlistComments = new ArrayList<>();
             if (rs.next()) {
                 playlistComments.add(new PlaylistComment(rs.getInt(1), rs.getString(2),
-                        rs.getDate(3), rs.getInt(4), rs.getInt(5)));
+                        rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(5)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

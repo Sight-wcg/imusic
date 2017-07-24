@@ -46,16 +46,17 @@ public class SingerDAOImpl implements SingerDAO {
     public List<Singer> findAllSinger() {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllSongSQL = "select * from song";
+        String findAllSongSQL = "select * from singer";
         ResultSet rs = null;
-        List<Singer> singerList = null;
+        List<Singer> singerList;
         try {
             pstmt = conn.prepareStatement(findAllSongSQL);
             rs = pstmt.executeQuery();
             singerList = new ArrayList<>();
             while (rs.next()) {
                 singerList.add(new Singer(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getString(4), rs.getInt(5)));
+                        rs.getInt(3), rs.getString(4), rs.getInt(5),
+                        rs.getString(6), rs.getInt(7)));
             }
             return singerList;
         } catch (SQLException e) {
@@ -71,15 +72,16 @@ public class SingerDAOImpl implements SingerDAO {
     public Singer findSingerByID(int singerID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findSingerByIDSQL = "select * from Singer where singerID = ?";
+        String findSingerByIDSQL = "select * from singer where singerID = ?";
         ResultSet rs =null;
         try {
             pstmt = conn.prepareStatement(findSingerByIDSQL);
             pstmt.setInt(1, singerID);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Singer(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getString(4), rs.getInt(5));
+                new Singer(rs.getInt(1), rs.getString(2),
+                        rs.getInt(3), rs.getString(4), rs.getInt(5),
+                        rs.getString(6), rs.getInt(7));
             }
         } catch (SQLException e) {
             e.printStackTrace();

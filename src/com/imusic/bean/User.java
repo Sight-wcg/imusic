@@ -21,11 +21,13 @@ public class User {
     private String userHeadPortrait;    // 用户头像
     private String userDescription;     // 用户个人介绍描述
     private Date userLastLoginDate;     // 用户上次登录时间
+    private String userPhoneNumber;     // 用户的电话号码
+    private int userLevel;              // 用户的等级（活跃度）
 
     // 在查找用户业务中发现需要有参构造方法才能实现
     public User(int userID, String userName, String userPassword, String userEmail,
                 int userGender, Date userRegisterDate, Date userBirthday, String userAddress,
-                String userHeadPortrait, String userDescription, Date userLastLoginDate) {
+                String userHeadPortrait, String userDescription, Date userLastLoginDate, String userPhoneNumber, int userLevel) {
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -37,6 +39,8 @@ public class User {
         this.userHeadPortrait = userHeadPortrait;
         this.userDescription = userDescription;
         this.userLastLoginDate = userLastLoginDate;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userLevel = userLevel;
     }
 
     public int getUserID() {
@@ -125,5 +129,21 @@ public class User {
 
     public void setUserLastLoginDate(Date userLastLoginDate) {
         this.userLastLoginDate = userLastLoginDate;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public int getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 }

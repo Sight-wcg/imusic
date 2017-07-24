@@ -18,8 +18,8 @@ public class PlaylistCommentReplyDAOImpl implements PlaylistCommentReplyDAO {
     public void addPlaylistCommentReply(PlaylistCommentReply pCReply) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String addPCReplySQL = "insert into playlistCommentReply(pCReplyContent, pCReplyDate," +
-                "userID, pCommentID) values(?, ?, ?, ?)";
+        String addPCReplySQL = "insert into list_comment_reply(replyContent, replyDate," +
+                "userID, listCommentID) values(?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addPCReplySQL);
             pstmt.setString(1, pCReply.getpCReplyContent());
@@ -38,7 +38,7 @@ public class PlaylistCommentReplyDAOImpl implements PlaylistCommentReplyDAO {
     public void deletePlaylistCommentReply(PlaylistCommentReply pCReply) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String delPCReplySQL = "delete from playlistCommentReply where pCReplyID = ?";
+        String delPCReplySQL = "delete from list_comment_reply where listCommentReplyID = ?";
         try {
             pstmt = conn.prepareStatement(delPCReplySQL);
             pstmt.setInt(1, pCReply.getpCReplyID());
@@ -59,7 +59,7 @@ public class PlaylistCommentReplyDAOImpl implements PlaylistCommentReplyDAO {
     public List<PlaylistCommentReply> findAllPlaylistCommentReply(int pCommentID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllSCReplySQL = "select * from playlistCommentReply where pCommentID = ?";
+        String findAllSCReplySQL = "select * from list_comment_reply where listCommentID = ?";
         ResultSet rs = null;
         List<PlaylistCommentReply> playlistCommentReplies;
         try {
@@ -69,7 +69,7 @@ public class PlaylistCommentReplyDAOImpl implements PlaylistCommentReplyDAO {
             playlistCommentReplies = new ArrayList<>();
             while (rs.next()) {
                 playlistCommentReplies.add(new PlaylistCommentReply(rs.getInt(1), rs.getString(2),
-                        rs.getDate(3), rs.getInt(4), rs.getInt(5)));
+                        rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return playlistCommentReplies;
         } catch (SQLException e) {
