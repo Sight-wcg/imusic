@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.Song;
 import com.imusic.dao.PlaylistHasSongDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,14 +20,14 @@ public class PlaylistHasSongDAOImpl implements PlaylistHasSongDAO{
     @Override
     public void addSongIntoPlaylist(int playlistID, int songID) {
         String addSQL = "insert into playlistHasSong values(?, ?)";
-        dateOperate(playlistID, songID, addSQL);
+        DBOperation.dateOperate(playlistID, songID, addSQL);
     }
 
     @Override
     public void delSongFromPlaylist(int playlistID, int songID) {
         String delSQL = "delete from playlistHasSong " +
                 "where playlistID = ? and songID = ?";
-        dateOperate(playlistID, songID, delSQL);
+        DBOperation.dateOperate(playlistID, songID, delSQL);
     }
 
     @Override
@@ -55,24 +56,4 @@ public class PlaylistHasSongDAOImpl implements PlaylistHasSongDAO{
         return null;
     }
 
-    /**
-     * 为了避免代码冗余
-     * @param playlistID
-     * @param songID
-     * @param sql
-     */
-    public void dateOperate(int playlistID, int songID, String sql) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, playlistID);
-            pstmt.setInt(2, songID);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
-    }
 }
