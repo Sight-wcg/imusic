@@ -17,13 +17,14 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
         String addUserSQL = "insert into user(userName, userPassword, " +
-                "userEmail,userRegisterDate,userLastLoginDate) values(?, ?, ?, ?)";
+                "userEmail,userRegisterDate,userLastLoginDate) values(?, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addUserSQL);
             pstmt.setString(1, user.getUserName());
             pstmt.setString(2, user.getUserPassword());
             pstmt.setString(3, user.getUserEmail());
             pstmt.setDate(4, (Date)user.getUserRegisterDate());
+            pstmt.setDate(5, (Date) user.getUserLastLoginDate());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,18 +33,31 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /**
+     *
+     * question: 一个用户的信息可能有处修改，如何判断呢？
+     * 虽然可以将用户的所有信息都 set 一遍，但可能会影响性能，而且代码也变多了 :(
+     *
+     * 考虑了一下，更改用户信息这块只用密码重要性大一点，故将其他都放在updateUser(user)里面
+     * 不一定每个字段都会发生改变
+
+     * @param user
+     */
     @Override
     public void updateUser(User user) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        /*
-         *  question: 一个用户的信息可能有处修改，如何判断呢？
-         *  虽然可以将用户的所有信息都 set 一遍，但可能会影响性能，而且代码也变多了 :(
-         */
-        String updateUserSQL = "alter table user set username = ?";     // 暂时为修改用户名
+        String updateUserSQL = "update user set userName = ?, userEmail = ?, userGender = ?," +
+                "userBirthday = ?, userAddress = ?, userHeadPortrait = ?, userDescription = ?";
         try {
             pstmt = conn.prepareStatement(updateUserSQL);
             pstmt.setString(1, user.getUserName());
+            pstmt.setString(2, user.getUserEmail());
+            pstmt.setInt(3, user.getUserGender());
+            pstmt.setDate(4, (Date) user.getUserBirthday());
+            pstmt.setString(5, user.getUserAddress());
+            pstmt.setString(6, user.getUserHeadPortrait()); // 设置用户头像路径
+            pstmt.setString(7, user.getUserDescription());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
