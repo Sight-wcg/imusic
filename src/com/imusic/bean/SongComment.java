@@ -16,6 +16,15 @@ public class SongComment {
     private int userID;                 // 歌曲评论者
     private int songID;             // 被评论的歌曲ID
 
+    public SongComment(int sCommentID, String sCommentContent,
+                       Date sCommentDate, int userID, int songID) {
+        this.sCommentID = sCommentID;
+        this.sCommentContent = sCommentContent;
+        this.sCommentDate = sCommentDate;
+        this.userID = userID;
+        this.songID = songID;
+    }
+
     public int getsCommentID() {
         return sCommentID;
     }

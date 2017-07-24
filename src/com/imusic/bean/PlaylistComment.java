@@ -16,6 +16,15 @@ public class PlaylistComment {
     private int userID;                 // 歌单评论者
     private int playlistID;             // 被评论的歌单ID
 
+    public PlaylistComment(int pCommentID, String pCommentContent,
+                           Date pCommentDate, int userID, int playlistID) {
+        this.pCommentID = pCommentID;
+        this.pCommentContent = pCommentContent;
+        this.pCommentDate = pCommentDate;
+        this.userID = userID;
+        this.playlistID = playlistID;
+    }
+
     public int getpCommentID() {
         return pCommentID;
     }
