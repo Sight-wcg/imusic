@@ -56,7 +56,7 @@ public class SingerDAOImpl implements SingerDAO {
             while (rs.next()) {
                 singerList.add(new Singer(rs.getInt(1), rs.getString(2),
                         rs.getInt(3), rs.getString(4), rs.getInt(5),
-                        rs.getString(6), rs.getInt(7)));
+                        rs.getString(6), rs.getString(7)));
             }
             return singerList;
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class SingerDAOImpl implements SingerDAO {
             if (rs.next()) {
                 new Singer(rs.getInt(1), rs.getString(2),
                         rs.getInt(3), rs.getString(4), rs.getInt(5),
-                        rs.getString(6), rs.getInt(7));
+                        rs.getString(6), rs.getString(7));
             }
         } catch (SQLException e) {
             e.printStackTrace();

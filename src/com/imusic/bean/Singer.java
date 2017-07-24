@@ -14,10 +14,11 @@ public class Singer {
     private String singerNationality;   // 歌手的国籍
     private int singerHot;              // 歌手的热度（关注数）
     private String singerDescription;   // 歌手的描述
-    private int singerAge;              // 歌手的年龄
+    private String singerAge;           // 歌手的年代 90 年代
 
     public Singer(int singerID, String singerName,
-                  int singerGender, String singerNationality, int singerHot, String singerDescription, int singerAge) {
+                  int singerGender, String singerNationality,
+                  int singerHot, String singerDescription, String singerAge) {
         this.singerID = singerID;
         this.singerName = singerName;
         this.singerGender = singerGender;
@@ -75,11 +76,11 @@ public class Singer {
         this.singerDescription = singerDescription;
     }
 
-    public int getSingerAge() {
+    public String getSingerAge() {
         return singerAge;
     }
 
-    public void setSingerAge(int singerAge) {
+    public void setSingerAge(String singerAge) {
         this.singerAge = singerAge;
     }
 }
