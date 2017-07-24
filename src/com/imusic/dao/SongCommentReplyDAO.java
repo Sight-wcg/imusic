@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface SongCommentReplyDAO {
 
-    public void addSongCommentReply(SongCommentReply sCReply);          // 添加歌曲评论的回复
-    public void deleteSongCommentReply(SongCommentReply sCReply);       // 删除歌曲评论的回复
-    public void updateSongComment(SongCommentReply sCReply);            // 更新歌曲评论的回复
-    public List<SongCommentReply> findAllSongCommentReply();            // 查找所有的歌曲评论的回复
-    public SongCommentReply findSongCommentReplyByID(int sCReplyID);    // 根据sCReplyID查找歌曲评论的回复
+    public void addSongCommentReply(SongCommentReply sCReply);              // 添加歌曲评论的回复
+    public void deleteSongCommentReply(SongCommentReply sCReply);           // 删除歌曲评论的回复
+    public void updateSongComment(SongCommentReply sCReply);                // 更新歌曲评论的回复
+    public List<SongCommentReply> findAllSongCommentReply(int sCommentID);  // 查找指定的歌曲评论的回复
+    public SongCommentReply findSongCommentReplyByID(int sCReplyID);        // 根据sCReplyID查找歌曲评论的回复
 }

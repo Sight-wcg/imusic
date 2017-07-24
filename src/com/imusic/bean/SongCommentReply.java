@@ -16,6 +16,15 @@ public class SongCommentReply {
     private int userID;             // 回复者ID
     private int sCommentID;         // 被回复的评论ID
 
+    public SongCommentReply(int sCReplyID, String sCReplyContent,
+                            Date sCReplyDate, int userID, int sCommentID) {
+        this.sCReplyID = sCReplyID;
+        this.sCReplyContent = sCReplyContent;
+        this.sCReplyDate = sCReplyDate;
+        this.userID = userID;
+        this.sCommentID = sCommentID;
+    }
+
     public int getsCReplyID() {
         return sCReplyID;
     }

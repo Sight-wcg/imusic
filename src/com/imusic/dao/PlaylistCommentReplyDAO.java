@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface PlaylistCommentReplyDAO {
 
-    public void addPlaylistCommentReply(PlaylistCommentReply pCReply);          // 添加歌单评论的回复
-    public void deletePlaylistCommentReply(PlaylistCommentReply pCReply);       // 删除歌单评论的回复
-    public void updatePlaylistCommentReply(PlaylistCommentReply pCReply);       // 更新歌单评论的回复
-    public List<PlaylistCommentReply> findAllPlaylistCommentReply();            // 查找所有的歌单评论回复
-    public PlaylistCommentReply findPlaylistCommentReplyByID(int pCReplyID);    // 根据pCReplyID查找歌单评论
+    public void addPlaylistCommentReply(PlaylistCommentReply pCReply);              // 添加歌单评论的回复
+    public void deletePlaylistCommentReply(PlaylistCommentReply pCReply);           // 删除歌单评论的回复
+    public void updatePlaylistCommentReply(PlaylistCommentReply pCReply);           // 更新歌单评论的回复
+    public List<PlaylistCommentReply> findAllPlaylistCommentReply(int pCommentID);  // 查找指定的歌单评论回复
+    public PlaylistCommentReply findPlaylistCommentReplyByID(int pCReplyID);        // 根据pCReplyID查找歌单评论
 }

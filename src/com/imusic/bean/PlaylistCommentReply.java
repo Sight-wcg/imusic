@@ -16,6 +16,15 @@ public class PlaylistCommentReply {
     private int userID;             // 回复者ID
     private int pCommentID;         // 被回复的评论ID
 
+    public PlaylistCommentReply(int pCReplyID, String pCReplyContent,
+                                Date pCReplyDate, int userID, int pCommentID) {
+        this.pCReplyID = pCReplyID;
+        this.pCReplyContent = pCReplyContent;
+        this.pCReplyDate = pCReplyDate;
+        this.userID = userID;
+        this.pCommentID = pCommentID;
+    }
+
     public int getpCReplyID() {
         return pCReplyID;
     }

@@ -70,7 +70,7 @@ public class SongCommentDAOImpl implements SongCommentDAO {
     public List<SongComment> findAllSongComment(int songID) {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
-        String findAllSCommentSQL = "select * from sComment where songID = ?";
+        String findAllSCommentSQL = "select * from songComment where songID = ?";
         ResultSet rs = null;
         List<SongComment> songComments = null;
         try {

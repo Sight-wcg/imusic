@@ -1,12 +1,12 @@
 package com.imusic.daoImpl;
 
+import com.imusic.bean.SongComment;
 import com.imusic.bean.SongCommentReply;
 import com.imusic.dao.SongCommentReplyDAO;
 import com.imusic.util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +17,22 @@ import java.util.List;
 public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
     @Override
     public void addSongCommentReply(SongCommentReply sCReply) {
-
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = null;
+        String addSCReplySQL = "insert into songCommentReply(sCReplyContent, " +
+                "sCReplyDate, userID, sCommentID) values(?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(addSCReplySQL);
+            pstmt.setString(1, sCReply.getsCReplyContent());
+            pstmt.setDate(2, (Date) sCReply.getsCReplyDate());
+            pstmt.setInt(3, sCReply.getUserID());
+            pstmt.setInt(4, sCReply.getsCommentID());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(pstmt, conn);
+        }
     }
 
     @Override
@@ -41,8 +56,33 @@ public class SongCommentReplyDAOImpl implements SongCommentReplyDAO {
 
     }
 
+    /**
+     * 用于显示指定评论下的回复
+     * @param sCommentID
+     * @return
+     */
     @Override
-    public List<SongCommentReply> findAllSongCommentReply() {
+    public List<SongCommentReply> findAllSongCommentReply(int sCommentID) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = null;
+        String findAllSCReplySQL = "select * from songCommentReply where sCommentID = ?";
+        ResultSet rs = null;
+        List<SongCommentReply> songCommentReplies;
+        try {
+            pstmt = conn.prepareStatement(findAllSCReplySQL);
+            pstmt.setInt(1, sCommentID);
+            rs = pstmt.executeQuery();
+            songCommentReplies = new ArrayList<>();
+            while (rs.next()) {
+                songCommentReplies.add(new SongCommentReply(rs.getInt(1), rs.getString(2),
+                        rs.getDate(3), rs.getInt(4), rs.getInt(5)));
+            }
+            return songCommentReplies;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(rs, pstmt, conn);
+        }
         return null;
     }
 
