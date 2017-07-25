@@ -35,8 +35,8 @@ public class PlaylistTagDAOImpl implements PlaylistTagDAO {
             playlists = new ArrayList<>();
             while (rs.next()) {
                 playlists.add(new Playlist(rs.getInt(1), rs.getInt(2),
-                        rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getDate(6), rs.getInt(7)));
+                        rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getString(6), rs.getInt(7)));
             }
             return playlists;
         } catch (SQLException e) {
