@@ -92,8 +92,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             playlists = new ArrayList<>();
             while (rs.next()) {
                 playlists.add(new Playlist(rs.getInt(1), rs.getInt(2),
-                        rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getDate(6), rs.getInt(7)));
+                        rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getString(6), rs.getInt(7)));
             }
             return playlists;
         } catch(SQLException e) {
@@ -116,8 +116,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Playlist(rs.getInt(1), rs.getInt(2),
-                        rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getDate(6), rs.getInt(7));
+                        rs.getString(3), rs.getDate(4),
+                        rs.getString(5), rs.getString(6), rs.getInt(7));
             }
         } catch (SQLException e) {
             e.printStackTrace();

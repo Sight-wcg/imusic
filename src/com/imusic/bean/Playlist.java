@@ -18,8 +18,8 @@ public class Playlist {
     private Date playlistCreateDate;    // 歌单的创建日期
     private int playlistAccessTimes;    // 歌单的访问次数
 
-    public Playlist(int playlistID, int userID, String playlistName, String playlistDescription,
-                    String playlistImg, Date playlistCreateDate, int playlistAccessTimes) {
+    public Playlist(int playlistID, int userID, String playlistDescription, Date playlistCreateDate,
+                    String playlistName, String playlistImg, int playlistAccessTimes) {
         this.playlistID = playlistID;
         this.userID = userID;
         this.playlistName = playlistName;

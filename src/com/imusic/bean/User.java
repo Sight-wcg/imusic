@@ -25,9 +25,9 @@ public class User {
     private int userLevel;              // 用户的等级（活跃度）
 
     // 在查找用户业务中发现需要有参构造方法才能实现
-    public User(int userID, String userName, String userPassword, String userEmail,
-                int userGender, Date userRegisterDate, Date userBirthday, String userAddress,
-                String userHeadPortrait, String userDescription, Date userLastLoginDate, String userPhoneNumber, int userLevel) {
+    public User(int userID, String userName, String userPassword, String userEmail, String userPhoneNumber,
+                int userGender, int userLevel, Date userRegisterDate, Date userBirthday, String userAddress,
+                String userHeadPortrait, String userDescription, Date userLastLoginDate) {
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;

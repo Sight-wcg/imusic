@@ -17,8 +17,8 @@ public class PlaylistCommentReply {
     private int pCommentID;         // 被回复的评论ID
     private int pCReplyAgreeNumber; // 赞的个数
 
-    public PlaylistCommentReply(int pCReplyID, String pCReplyContent,
-                                Date pCReplyDate, int userID, int pCommentID, int pCReplyAgreeNumber) {
+    public PlaylistCommentReply(int pCommentID, String pCReplyContent, Date pCReplyDate,
+                                int userID, int pCReplyID, int pCReplyAgreeNumber) {
         this.pCReplyID = pCReplyID;
         this.pCReplyContent = pCReplyContent;
         this.pCReplyDate = pCReplyDate;

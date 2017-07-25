@@ -23,10 +23,10 @@ public class PlaylistTagDAOImpl implements PlaylistTagDAO {
     @Override
     public List<Playlist> findAllPlaylist(String tag) {
         Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt;
+        PreparedStatement pstmt = null;
         String findAllSQL = "select * from list where listID in " +
-                "(select listID form list_tag where tag = ?)";
-        ResultSet rs;
+                "(select listID from list_tag where tag = ?)";
+        ResultSet rs = null;
         List<Playlist> playlists;
         try {
             pstmt = conn.prepareStatement(findAllSQL);
@@ -38,8 +38,11 @@ public class PlaylistTagDAOImpl implements PlaylistTagDAO {
                         rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getDate(6), rs.getInt(7)));
             }
+            return playlists;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.close(rs, pstmt, conn);
         }
         return null;
     }
