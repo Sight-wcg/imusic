@@ -24,6 +24,9 @@ public class User {
     private String userPhoneNumber;     // 用户的电话号码
     private int userLevel;              // 用户的等级（活跃度）
 
+    // 添加无参构造函数，为了注册时传递必须的几个属性
+    public User(){}
+
     // 在查找用户业务中发现需要有参构造方法才能实现
     public User(int userID, String userName, String userPassword, String userEmail, String userPhoneNumber,
                 int userGender, int userLevel, Date userRegisterDate, Date userBirthday, String userAddress,
