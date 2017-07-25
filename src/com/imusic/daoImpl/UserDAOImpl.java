@@ -17,14 +17,13 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pstmt = null;
         String addUserSQL = "insert into user(userName, password, " +
-                "email,registerDate,lastLoginDate) values(?, ?, ?, ?, ?)";
+                "email,lastLoginDate) values(?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(addUserSQL);
             pstmt.setString(1, user.getUserName());
             pstmt.setString(2, user.getUserPassword());
             pstmt.setString(3, user.getUserEmail());
-            pstmt.setDate(4, (Date)user.getUserRegisterDate());
-            pstmt.setDate(5, (Date) user.getUserLastLoginDate());
+            pstmt.setDate(4, (Date) user.getUserLastLoginDate());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
