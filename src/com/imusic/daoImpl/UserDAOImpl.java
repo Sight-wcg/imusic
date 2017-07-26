@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.User;
 import com.imusic.dao.UserDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 import com.imusic.util.Encoder;
 
 import java.io.UnsupportedEncodingException;
@@ -76,18 +77,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(User user) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = user.getUserID();
         String delUserSQL = "delete from user where userID = ?";
-        try {
-            pstmt = conn.prepareStatement(delUserSQL);
-            pstmt.setInt(1, user.getUserID());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delUserSQL);
     }
 
     @Override

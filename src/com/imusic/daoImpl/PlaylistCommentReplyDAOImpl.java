@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.PlaylistCommentReply;
 import com.imusic.dao.PlaylistCommentReplyDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,18 +37,9 @@ public class PlaylistCommentReplyDAOImpl implements PlaylistCommentReplyDAO {
 
     @Override
     public void deletePlaylistCommentReply(PlaylistCommentReply pCReply) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = pCReply.getpCReplyID();
         String delPCReplySQL = "delete from list_comment_reply where listCommentReplyID = ?";
-        try {
-            pstmt = conn.prepareStatement(delPCReplySQL);
-            pstmt.setInt(1, pCReply.getpCReplyID());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delPCReplySQL);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.Singer;
 import com.imusic.dao.SingerDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,17 +25,9 @@ public class SingerDAOImpl implements SingerDAO {
 
     @Override
     public void deleteSinger(Singer singer) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = singer.getSingerID();
         String delSingerSQL = "delete from singer where singerID = ?";
-        try {
-            pstmt = conn.prepareStatement(delSingerSQL);
-            pstmt.setInt(1, singer.getSingerID());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delSingerSQL);
     }
 
     @Override

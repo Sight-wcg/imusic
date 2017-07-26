@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.Album;
 import com.imusic.dao.AlbumDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,18 +26,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     public void deleteAlbum(Album album) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = album.getAlbumID();
         String delAlbumSQL = "delete from album where albumID = ?";
-        try {
-            pstmt = conn.prepareStatement(delAlbumSQL);
-            pstmt.setInt(1, album.getAlbumID());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delAlbumSQL);
     }
 
     @Override

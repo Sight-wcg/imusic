@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.Playlist;
 import com.imusic.dao.PlaylistDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,18 +42,9 @@ public class PlaylistDAOImpl implements PlaylistDAO {
 
     @Override
     public void deletePlaylist(Playlist playlist) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = playlist.getPlaylistID();
         String delPlaylistSQL = "delete from list where listID = ?";
-        try {
-            pstmt = conn.prepareStatement(delPlaylistSQL);
-            pstmt.setInt(1, playlist.getPlaylistID());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delPlaylistSQL);
     }
 
     /**

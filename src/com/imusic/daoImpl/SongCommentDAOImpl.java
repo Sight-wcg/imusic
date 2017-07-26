@@ -3,6 +3,7 @@ package com.imusic.daoImpl;
 import com.imusic.bean.SongComment;
 import com.imusic.dao.SongCommentDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.DBOperation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -44,18 +45,9 @@ public class SongCommentDAOImpl implements SongCommentDAO {
 
     @Override
     public void deleteSongComment(SongComment sComment) {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
+        int id = sComment.getsCommentID();
         String delSongCommentSQL = "delete from song_comment where commentID = ?";
-        try {
-            pstmt = conn.prepareStatement(delSongCommentSQL);
-            pstmt.setInt(1, sComment.getsCommentID());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(pstmt, conn);
-        }
+        DBOperation.deleteItem(id, delSongCommentSQL);
     }
 
     @Override
