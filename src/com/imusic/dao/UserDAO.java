@@ -16,5 +16,5 @@ public interface UserDAO {
     public void deleteUser(User user);      // 删除用户，比如用户选择注销账号
     public List<User> findAllUser();        // 查询所有用户
     public User findUserByID(int userID);   // 根据用户ID查找
-
+    public User findUserByName(String name); // 根据用户名查找
 }

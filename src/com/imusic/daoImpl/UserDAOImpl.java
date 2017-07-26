@@ -3,7 +3,10 @@ package com.imusic.daoImpl;
 import com.imusic.bean.User;
 import com.imusic.dao.UserDAO;
 import com.imusic.util.DBConnection;
+import com.imusic.util.Encoder;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -21,11 +24,15 @@ public class UserDAOImpl implements UserDAO {
         try {
             pstmt = conn.prepareStatement(addUserSQL);
             pstmt.setString(1, user.getUserName());
-            pstmt.setString(2, user.getUserPassword());
+            pstmt.setString(2, Encoder.EncoderByMD5(user.getUserPassword()));
             pstmt.setString(3, user.getUserEmail());
             pstmt.setDate(4, (Date) user.getUserLastLoginDate());
             pstmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
             DBConnection.close(pstmt, conn);
@@ -119,6 +126,30 @@ public class UserDAOImpl implements UserDAO {
         try {
             pstmt = conn.prepareStatement(findUserByIDSQL);
             pstmt.setInt(1, userID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7),
+                        rs.getDate(8), rs.getDate(9), rs.getString(10),
+                        rs.getString(11), rs.getString(12), rs.getDate(13));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(rs, pstmt, conn);
+        }
+        return null;
+    }
+
+    @Override
+    public User findUserByName(String name) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = null;
+        String findUserByIDSQL = "select * from user where name = ?";
+        ResultSet rs = null;
+        try {
+            pstmt = conn.prepareStatement(findUserByIDSQL);
+            pstmt.setString(1, name);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new User(rs.getInt(1), rs.getString(2), rs.getString(3),
